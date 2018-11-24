@@ -1,12 +1,14 @@
 use std::env;
 
+use reqwest;
+
 fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() < 2 {
         show_usage();
     } else {
-        monitor(&args[1]);
+        monitor_stream(&args[1]);
     }
 }
 
@@ -15,7 +17,9 @@ fn show_usage() {
     println!(" vsm <master-playlist-url>")
 }
 
-fn monitor(playlist_url: &str) {
-    println!("Looking for master playlist at:");
-    println!("{}", playlist_url)
+fn monitor_stream(playlist_url: &str) {
+    let mut res = reqwest::get(playlist_url).unwrap();
+
+    // copy the response body directly to stdout
+    let _ = std::io::copy(&mut res, &mut std::io::stdout());
 }

@@ -5,3 +5,5 @@ authors = ["Krzysztof Langner <klangner@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+reqwest = "0.9"
+m3u8-rs = "1.0"
